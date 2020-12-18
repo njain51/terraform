@@ -8,17 +8,23 @@ Objective:
 - Install Azure Client on Windows.
 - Create Simple VM on Azure using terraform scripts and store credentials in Key Valut. 
 
-Tag 1.0 created.
+#Tag 1.0 created.
 
 (2) 
 - Variables
 - Outputs
 
-Tag 1.1 created
+#Tag 1.2 created
 
 (3)
 - list, count, length and elements
 
-Tag 1.2 created
+#Tag 1.3 created
 
 
+(4) 
+- maps
+- join
+- depends_on
+
+#tag 1.4 created

@@ -16,6 +16,7 @@ name                = "${var.prefix}-network"
 address_space       = ["10.0.0.0/16"]
 location            = azurerm_resource_group.main.location
 resource_group_name = azurerm_resource_group.main.name
+depends_on = ["azurerm_resource_group.main"]
 }
 
 resource "azurerm_subnet" "internal" {
@@ -47,7 +48,7 @@ location              = azurerm_resource_group.main.location
 resource_group_name   = azurerm_resource_group.main.name
 #we will create 3 network interface id's and each VM will get seperate network interface id
 network_interface_ids = ["${element(azurerm_network_interface.main.*.id,count.index+1)}"]
-vm_size               = "Standard_DS1_v2"
+vm_size               = "${var.vm_size[var.machine_type]}"
 
 # Uncomment this line to delete the OS disk automatically when deleting the VM
 # delete_os_disk_on_termination = true
@@ -95,4 +96,8 @@ output "virual_machine_network_interface" {
 
 output "azurerm_subnet" {
   value = "${azurerm_subnet.internal.*.name}"
+}
+
+output "name" {
+  value = "${join("," , azurerm_virtual_machine.main.*.id)}"
 }
