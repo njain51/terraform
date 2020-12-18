@@ -4,13 +4,11 @@ provider "azurerm" {
 
   }
 }
-variable "prefix" {
-default = "tfnitin"
-}
 
 resource "azurerm_resource_group" "main" {
-name     = "${var.prefix}-resources"
-location = "East US 2"
+name     = "${var.prefix}-${var.name}"
+location = var.location
+
 }
 
 resource "azurerm_virtual_network" "main" {
@@ -75,4 +73,16 @@ disable_password_authentication = false
 tags = {
 environment = "staging"
 }
+}
+
+output "virual_machine_location" {
+  value = "${azurerm_resource_group.main.location}"
+}
+
+output "virual_machine_name" {
+  value = "${azurerm_virtual_machine.main.name}"
+}
+
+output "virual_machine_network_interface" {
+  value = "${azurerm_virtual_network.main.name}"
 }
