@@ -26,7 +26,9 @@ address_prefixes     = ["10.0.2.0/24"]
 }
 
 resource "azurerm_network_interface" "main" {
-name                = "${var.prefix}-nic"
+count                 = "${length(var.name_count)}"
+  // we can only have one network interface per VM
+name                = "${var.prefix}-nic-${count.index+1}"
 location            = azurerm_resource_group.main.location
 resource_group_name = azurerm_resource_group.main.name
 
@@ -38,10 +40,13 @@ private_ip_address_allocation = "Dynamic"
 }
 
 resource "azurerm_virtual_machine" "main" {
-name                  = "${var.prefix}-vm"
+count                 = "${length(var.name_count)}"
+  # adding +1 as index starts with 0.
+name                  = "vm-${count.index+1}"
 location              = azurerm_resource_group.main.location
 resource_group_name   = azurerm_resource_group.main.name
-network_interface_ids = [azurerm_network_interface.main.id]
+#we will create 3 network interface id's and each VM will get seperate network interface id
+network_interface_ids = ["${element(azurerm_network_interface.main.*.id,count.index+1)}"]
 vm_size               = "Standard_DS1_v2"
 
 # Uncomment this line to delete the OS disk automatically when deleting the VM
@@ -57,7 +62,8 @@ sku       = "16.04-LTS"
 version   = "latest"
 }
 storage_os_disk {
-name              = "myosdisk1"
+  # we can only have one unique disk  per VM
+name              = "myosdisk1-${count.index+1}"
 caching           = "ReadWrite"
 create_option     = "FromImage"
 managed_disk_type = "Standard_LRS"
@@ -76,13 +82,17 @@ environment = "staging"
 }
 
 output "virual_machine_location" {
-  value = "${azurerm_resource_group.main.location}"
+  value = "${azurerm_resource_group.main.*.location}"
 }
 
 output "virual_machine_name" {
-  value = "${azurerm_virtual_machine.main.name}"
+  value = "${azurerm_virtual_machine.main.*.name}"
 }
 
 output "virual_machine_network_interface" {
-  value = "${azurerm_virtual_network.main.name}"
+  value = "${azurerm_virtual_network.main.*.name}"
+}
+
+output "azurerm_subnet" {
+  value = "${azurerm_subnet.internal.*.name}"
 }

@@ -16,3 +16,9 @@ Tag 1.0 created.
 
 Tag 1.1 created
 
+(3)
+- list, count, length and elements
+
+Tag 1.2 created
+
+
