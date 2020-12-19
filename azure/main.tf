@@ -48,7 +48,7 @@ location              = azurerm_resource_group.main.location
 resource_group_name   = azurerm_resource_group.main.name
 #we will create 3 network interface id's and each VM will get seperate network interface id
 network_interface_ids = ["${element(azurerm_network_interface.main.*.id,count.index+1)}"]
-vm_size               = "${var.vm_size[var.machine_type]}"
+vm_size               = "${"${var.environment}" == "dev" ?  var.vm_size_dev : var.vm_size_uat}"
 
 # Uncomment this line to delete the OS disk automatically when deleting the VM
 # delete_os_disk_on_termination = true
