@@ -28,11 +28,11 @@ Tasks:
 #tag 1.5 created
 
 (6)
-- added single VM configuration as before.
+- added single VM advanced configuration as before.
 #tag 1.6 created
 
 (7)
 - adding two additonal data disk and one managed disk
-#tag 1.7 created
+#tag 2.1 created
 
 (8)
