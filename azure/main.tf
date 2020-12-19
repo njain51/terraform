@@ -37,7 +37,18 @@ name                          = "testconfiguration1"
 subnet_id                     = azurerm_subnet.internal.id
 private_ip_address_allocation = "Dynamic"
                   }
-                                           }
+}
+
+# Addiotnal Managed disk
+
+resource "azurerm_managed_disk" "manageddisk" {
+  create_option = "Empty"
+  location = azurerm_resource_group.main.location
+  name = "managed_disk"
+  resource_group_name = azurerm_resource_group.main.name
+  storage_account_type = "Standard_LRS"
+  disk_size_gb = 10
+}
 
 
 resource "azurerm_virtual_machine" "core" {
@@ -67,6 +78,27 @@ caching           = "ReadWrite"
 create_option     = "FromImage"
 managed_disk_type = "Standard_LRS"
 }
+#adding additional external disk
+storage_data_disk {
+  create_option = "Empty"
+  lun = 1
+  name = "additonal-data-disk-1"
+  managed_disk_type = "Standard_LRS"
+  disk_size_gb = 10
+
+}
+#adding more disk , change name and lun
+  storage_data_disk {
+
+    create_option = "Empty"
+    lun = 2
+    name = "additonal-data-disk-2"
+    managed_disk_type = "StandardSSD_LRS"
+    disk_size_gb = 10
+  }
+
+
+
 os_profile {
 computer_name  = "nitinvm"
 admin_username = "testadmin"
