@@ -33,6 +33,6 @@ Tasks:
 
 (7)
 - adding two additonal data disk and one managed disk
-#tag 1.8 created
+#tag 2.1 created
 
 (8)
