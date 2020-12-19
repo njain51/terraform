@@ -39,3 +39,8 @@ Tasks:
 - adding security groups
 #tag 2.2 created
 
+(9)
+- adding Storage Accounts
+#tag 2.3 created
+
+(10)
