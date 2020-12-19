@@ -15,7 +15,7 @@ name                = "${var.prefix}-network"
 address_space       = ["10.0.0.0/16"]
 location            = azurerm_resource_group.main.location
 resource_group_name = azurerm_resource_group.main.name
-depends_on = ["azurerm_resource_group.main"]
+
 }
 
 resource "azurerm_subnet" "internal" {
@@ -32,11 +32,20 @@ name                = "${var.prefix}-nic-${count.index+1}"
 location            = azurerm_resource_group.main.location
 resource_group_name = azurerm_resource_group.main.name
 
+
 ip_configuration {
 name                          = "testconfiguration1"
 subnet_id                     = azurerm_subnet.internal.id
 private_ip_address_allocation = "Dynamic"
+
                   }
+
+}
+
+resource "azurerm_network_interface_security_group_association" "main" {
+  count = 1
+  network_interface_id = "${azurerm_network_interface.main[count.index].id}"
+  network_security_group_id = "${azurerm_network_security_group.security.id}"
 }
 
 # Addiotnal Managed disk
