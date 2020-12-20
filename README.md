@@ -46,3 +46,8 @@ Tasks:
 (10)
 - added database
 #tag 2.4 created
+
+(11) 
+- Starting from scratch: Adding First Module
+- Added resouce_group module
+#tag 3.1 created
