@@ -51,3 +51,7 @@ Tasks:
 - Starting from scratch: Adding First Module
 - Added resouce_group module
 #tag 3.1 created
+
+(12)
+- adding stuff on data sources: notes/2.6_data_sources.md
+- 
