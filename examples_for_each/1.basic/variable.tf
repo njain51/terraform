@@ -1,8 +1,11 @@
 // defining servers variable which is nested map
 
+variable "prefix" {
+  type = string
+}
+
 variable "servers" {
-  type = map(object({
- 
+  type = map(object( {
     location     = string
-  }))
+  } ))
 }
