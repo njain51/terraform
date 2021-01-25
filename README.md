@@ -55,3 +55,11 @@ Tasks:
 (12)
 - adding stuff on data sources: notes/2.6_data_sources.md
 - 
+
+(13)
+terraform multiple vm with count variable 
+notes\3.2_multiple_vm_with_count.md
+terraform_multiple_vm_with_count
+#tag 3.2
+
+(14) 
